@@ -1,16 +1,16 @@
 <?php
-	if(isset($_POST['tache'])){
+	if(!EMPTY($_POST['tache']) AND isset($_POST['tache'])){
 
-		$todo = file_get_contents('todo.json');
-		$decodeTodo = json_decode($todo, true);
+		$todo = file_get_contents('todo.json'); //Appel du fichier .json
+		$decodeTodo = json_decode($todo, true); //On convertit le json en array PHP
 
-		var_dump($decodeTodo);
+		// var_dump($decodeTodo);
 
-		$decodeTodo['aFaire'][] = htmlspecialchars($_POST['tache']);
+		$decodeTodo['aFaire'][] = htmlspecialchars($_POST['tache']); //On met la valeur de l'input dans l'array de l'array "aFaire" (si ce dernier n'existe pas, il est créé)
 		
-		$newTodo = json_encode($decodeTodo, JSON_FORCE_OBJECT);
+		$newTodo = json_encode($decodeTodo, JSON_FORCE_OBJECT); //On convertit l'array en objet json
 
-		file_put_contents('todo.json', $newTodo);
+		file_put_contents('todo.json', $newTodo); //On injecte l'objet dans json
 
 	}
 ?>
@@ -50,7 +50,7 @@
 // // AMEN
 // }
 ?>
-
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,24 +59,6 @@
 </head>
 <body>
 	
-
-	<h2>A Faire</h2>
-	<form action="" method="post">
-		<input type="checkbox" name="checkbox">
-		<?php 
-
-		?>
-		<input type="submit" value="Enregistrer">
-	</form>
-
-	<h2>Archive</h2>
-	<form action="" method="post">
-		<input type="checkbox" name="checkbox">
-		
-	</form>
-
-
-
 	<h2>Ajouter une tâche</h2>
 	<form action="" method="post" >
 		<input type="text" name="tache">
@@ -84,6 +66,6 @@
 	</form>
 
 </body>
-</html>
+</html> -->
 
 
