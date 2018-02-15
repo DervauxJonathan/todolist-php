@@ -6,11 +6,12 @@
 
 		// var_dump($decodeTodo);
 
-		$decodeTodo['aFaire'][] = htmlspecialchars($_POST['tache']); //On met la valeur de l'input dans l'array de l'array "aFaire" (si ce dernier n'existe pas, il est créé)
+		$decodeTodo['aFaire'][] = htmlspecialchars($_POST['tache']);
+		 //On met la valeur de l'input dans l'array de la clé "aFaire" (si ce dernier n'existe pas, il est créé)
 		
-		$newTodo = json_encode($decodeTodo, JSON_FORCE_OBJECT); //On convertit l'array en objet json
+		$newTodo = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
 
-		file_put_contents('todo.json', $newTodo); //On injecte l'objet dans json
+		file_put_contents('todo.json', $newTodo); //On envoie l'array dans json
 
 	}
 ?>
@@ -50,22 +51,10 @@
 // // AMEN
 // }
 ?>
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-</head>
-<body>
-	
-	<h2>Ajouter une tâche</h2>
-	<form action="" method="post" >
-		<input type="text" name="tache">
-		<input type="submit" value="ajouter">
-	</form>
 
-</body>
-</html> -->
+
+	
+
+
 
 
