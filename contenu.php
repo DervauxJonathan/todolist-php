@@ -1,30 +1,34 @@
 <?php 
 	include ('formulaire.php');
-	if (!EMPTY($_POST['tache']) AND isset($_POST['tache'])) {
-
-
-		$todo = file_get_contents('todo.json'); //On récupère le fichier json
-		$decodeTodo = json_decode($todo, true); //On le convertit en array PHP
-		
-	};
-
 
 	if (isset($_POST['checkDo'])) {
-
-		$todoCheck = file_get_contents('todo.json'); //On récupère le fichier json
-		$decodeTodoCheck = json_decode($todoCheck, true); //On le convertit en array PHP
-
-		var_dump($decodeTodoCheck);
-
 		$checkDo = $_POST['checkDo'];
 
-	
-		$decodeTodoCheck['archives'] = $checkDo;
-		//On met la valeur de la checkbox dans l'array de la clé "archives" (si ce dernier n'existe pas, il est créé)
+		//On récupère les valeurs des checkbox cochées en appuyant sur "Enregistrer".
+ 		//Ces valeurs sont disposées dans un array.
+ 		//Il faut itérer dans cet array pour isoler chaque valeur, sinon, à chaque clic sur "Enregistrer, on enverra l'array en bloc.
+ 		//Ainsi, on pourra injecter ces valeurs une à une dans l'array "archives".
+ 		//Donc, il faut chaque fois ouvrir le .json, isoler une checkbox, et l'injecter dans .json.
 
-		$newArchive = json_encode($decodeTodoCheck, JSON_PRETTY_PRINT); //On encode l'array json
+		foreach ($checkDo as $index => $valueCheckDo) {
+			$todoCheck = file_get_contents('todo.json'); //On récupère le fichier json
+			$decodeTodo = json_decode($todoCheck, true); //On le convertit en array PHP
+
+
+		if(isset($decodeTodo['archives']) AND !EMPTY($decodeTodo['archives'])){  //si "archives" dans le .json et qu'il n'est pas vide
+			
+			array_push($decodeTodo['archives'], $checkDo[$index]); //on push chaque valeur des checkbox dans l'array "archives".
+
+		} else {
+
+			$decodeTodo['archives'][] = $checkDo[$index]; //Sinon, on crée l'array archive et on push chaque valeur des checkbox
+
+		}
+		
+		$newArchive = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
 
 		file_put_contents('todo.json', $newArchive); //On envoie l'array dans json
+		}
 	} 
 ?>
 array_diff

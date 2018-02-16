@@ -4,9 +4,10 @@
 		$todo = file_get_contents('todo.json'); //Appel du fichier .json
 		$decodeTodo = json_decode($todo, true); //On convertit le json en array PHP
 
-		// var_dump($decodeTodo);
+		// var_dump($_POST['tache']);
 
 		$decodeTodo['aFaire'][] = htmlspecialchars($_POST['tache']);
+		// $decodeTodo['archives'] = [];
 		 //On met la valeur de l'input dans l'array de la clé "aFaire" (si ce dernier n'existe pas, il est créé)
 		
 		$newTodo = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
