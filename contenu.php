@@ -1,4 +1,4 @@
-<?php 
+<?php
 	include ('formulaire.php');
 
 	if (isset($_POST['checkDo'])) {
@@ -8,30 +8,26 @@
  		//Ces valeurs sont disposées dans un array.
  		//Il faut itérer dans cet array pour isoler chaque valeur, sinon, à chaque clic sur "Enregistrer, on enverra l'array en bloc.
  		//Ainsi, on pourra injecter ces valeurs une à une dans l'array "archives".
- 		//Donc, il faut chaque fois ouvrir le .json, isoler une checkbox, et l'injecter dans .json.
+
+ 		$todoCheck = file_get_contents('todo.json'); //On récupère le fichier json
+		$decodeTodo = json_decode($todoCheck, true); //On le convertit en array PHP
 
 		foreach ($checkDo as $index => $valueCheckDo) {
-			$todoCheck = file_get_contents('todo.json'); //On récupère le fichier json
-			$decodeTodo = json_decode($todoCheck, true); //On le convertit en array PHP
-
-
+	
 		if(isset($decodeTodo['archives']) AND !EMPTY($decodeTodo['archives'])){  //si "archives" dans le .json et qu'il n'est pas vide
-			
 			array_push($decodeTodo['archives'], $checkDo[$index]); //on push chaque valeur des checkbox dans l'array "archives".
 
-		} else {
+			} else {
 
 			$decodeTodo['archives'][] = $checkDo[$index]; //Sinon, on crée l'array archive et on push chaque valeur des checkbox
-
+			}
 		}
-		
 		$newArchive = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
-
 		file_put_contents('todo.json', $newArchive); //On envoie l'array dans json
-		}
 	} 
 ?>
 array_diff
+unset
 
 
 <!DOCTYPE html>
@@ -49,7 +45,7 @@ array_diff
 		
 	<?php foreach ($decodeTodo['aFaire'] as $key => $value){ // on itère dans l'array dans la partie 'aFaire'
 	?>
-		<input type="checkbox" name="checkDo[]" id="checkDo" value="<?php echo $value ?>"> <!-- !!!Renvoi la dernière checkbox cochée -->
+		<input type="checkbox" name="checkDo[]" id="checkDo" value="<?php echo $value ?>">
 		<label for="checkDo">
 		<?php echo $value . "<br>";
 

@@ -1,14 +1,21 @@
 <?php
+
+// session_start ();
+	// $todo = file_get_contents('todo.json'); //Appel du fichier .json
+	// $decodeTodo = json_decode($todo, true); //On convertit le json en array PHP
+	
+	// $decodeTodo['aFaire'][];
+
+	// $newTodo = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
+	// file_put_contents('todo.json', $newTodo); //On envoie l'array dans json
+
 	if(!EMPTY($_POST['tache']) AND isset($_POST['tache'])){
 
 		$todo = file_get_contents('todo.json'); //Appel du fichier .json
 		$decodeTodo = json_decode($todo, true); //On convertit le json en array PHP
 
-		// var_dump($_POST['tache']);
-
 		$decodeTodo['aFaire'][] = htmlspecialchars($_POST['tache']);
-		// $decodeTodo['archives'] = [];
-		 //On met la valeur de l'input dans l'array de la clé "aFaire" (si ce dernier n'existe pas, il est créé)
+		 //On met la valeur de l'input dans l'array de la clé "aFaire" (si ce dernier n'existe pas, il est créé)S
 		
 		$newTodo = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
 
