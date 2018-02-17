@@ -1,6 +1,11 @@
 <?php
 	include ('formulaire.php');
 
+	// $decodeTodo['aFaire'] = null;
+
+	// $decodeTodo['aFaire'][] = "";
+
+
 	if (isset($_POST['checkDo'])) {
 		$checkDo = $_POST['checkDo'];
 
@@ -24,6 +29,7 @@
 		}
 		$newArchive = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
 		file_put_contents('todo.json', $newArchive); //On envoie l'array dans json
+
 	} 
 ?>
 array_diff

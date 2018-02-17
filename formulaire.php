@@ -9,6 +9,9 @@
 	// $newTodo = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
 	// file_put_contents('todo.json', $newTodo); //On envoie l'array dans json
 
+
+ $decodeTodo['aFaire'][] = "";
+
 	if(!EMPTY($_POST['tache']) AND isset($_POST['tache'])){
 
 		$todo = file_get_contents('todo.json'); //Appel du fichier .json
