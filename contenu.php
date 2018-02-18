@@ -1,10 +1,7 @@
 <?php
 	include ('formulaire.php');
 
-	// $decodeTodo['aFaire'] = null;
-
-	// $decodeTodo['aFaire'][] = "";
-
+	$decodeTodo['archives'][] = "";
 
 	if (isset($_POST['checkDo'])) {
 		$checkDo = $_POST['checkDo'];
@@ -19,20 +16,24 @@
 
 		foreach ($checkDo as $index => $valueCheckDo) {
 	
-		if(isset($decodeTodo['archives']) AND !EMPTY($decodeTodo['archives'])){  //si "archives" dans le .json et qu'il n'est pas vide
-			array_push($decodeTodo['archives'], $checkDo[$index]); //on push chaque valeur des checkbox dans l'array "archives".
+			if(isset($decodeTodo['archives']) AND !EMPTY($decodeTodo['archives'])){  //si "archives" dans le .json et qu'il n'est pas vide
+				array_push($decodeTodo['archives'], $checkDo[$index]); //on push chaque valeur des checkbox dans l'array "archives".
 
-			} else {
+				} else {
 
-			$decodeTodo['archives'][] = $checkDo[$index]; //Sinon, on crée l'array archive et on push chaque valeur des checkbox
-			}
+				$decodeTodo['archives'][] = $checkDo[$index]; //Sinon, on crée l'array archive et on push chaque valeur des checkbox
+				}
 		}
-		$newArchive = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
-		file_put_contents('todo.json', $newArchive); //On envoie l'array dans json
 
+		//On compare les 2 arrays et on remplace "aFaire" avec la différence.
+		$newaFaire = array_diff($decodeTodo['aFaire'], $decodeTodo['archives']);
+		$decodeTodo['aFaire'] = $newaFaire;
+
+		$newTodo = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
+		file_put_contents('todo.json', $newTodo); //On envoie l'array dans json
 	} 
 ?>
-array_diff
+
 unset
 
 
@@ -44,41 +45,40 @@ unset
 
 </head>
 <body>
-	
 
 	<h2>A Faire</h2>
 	<form action="" method="post">
 		
-	<?php foreach ($decodeTodo['aFaire'] as $key => $value){ // on itère dans l'array dans la partie 'aFaire'
+	<?php foreach ($decodeTodo['aFaire'] as $iaFaire => $valueaFaire){ // on itère dans l'array dans la partie 'aFaire'
 	?>
-		<input type="checkbox" name="checkDo[]" id="checkDo" value="<?php echo $value ?>">
+		<input type="checkbox" name="checkDo[]" id="checkDo" value="<?php echo $valueaFaire ?>">
 		<label for="checkDo">
-		<?php echo $value . "<br>";
+			<?php echo $valueaFaire . "<br>";
 
-		}
-	?>	</label>
-
-	<!-- Si la case a été cochée, alors$_POST['case'] aura pour valeur « on ».
-
-    Si elle n'a pas été cochée, alors$_POST['case']n'existera pas. Vous pouvez faire un test avec isset($_POST['case'])pour vérifier si la case a été cochée ou non. -->
+			} 
+			?>	
+		</label>
 	
 		<input type="submit" value="Enregistrer" name="enregistrer">
 	</form>
 
-	<h2>Archive</h2>
+	<h2>Archives</h2>
 	<form action="" method="post">
-		<input type="checkbox" name="checkbox">
-		
+	<?php foreach ($decodeTodo['archives'] as $iArchives => $valueArchives) {  ?>
+		<input type="checkbox" name="checkArchives" value="<?php echo $valueArchives ?>">
+		<label for="checkArchives">
+			<?php 
+			echo $valueArchives . "<br>";
+			} 
+			?>
+		</label>
 	</form>
 
 	<h2>Ajouter une tâche</h2>
 	<form action="" method="post" >
-		<input type="text" name="tache">
+		<input type="text" name="tache" placeholder="Écrivez une tâche">
 		<input type="submit" value="ajouter">
 	</form>
-
-
-
 
 </body>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
