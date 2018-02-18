@@ -1,0 +1,9 @@
+.checked{
+	text-decoration: line-through;
+	color: #919090;
+}
+
+h2{
+	text-decoration: none !important;
+	color: #000;
+}

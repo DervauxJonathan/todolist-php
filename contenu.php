@@ -34,14 +34,12 @@
 	} 
 ?>
 
-unset
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>ToDoList</title>
+	<link rel="stylesheet" href="style.css">
 
 </head>
 <body>
@@ -51,8 +49,8 @@ unset
 		
 	<?php foreach ($decodeTodo['aFaire'] as $iaFaire => $valueaFaire){ // on itère dans l'array dans la partie 'aFaire'
 	?>
-		<input type="checkbox" name="checkDo[]" id="checkDo" value="<?php echo $valueaFaire ?>">
-		<label for="checkDo">
+		<input type="checkbox" name="checkDo[]" class="checkDo" value="<?php echo $valueaFaire ?>">
+		<label for="checkDo" class="checkDo">
 			<?php echo $valueaFaire . "<br>";
 
 			} 
@@ -65,8 +63,8 @@ unset
 	<h2>Archives</h2>
 	<form action="" method="post">
 	<?php foreach ($decodeTodo['archives'] as $iArchives => $valueArchives) {  ?>
-		<input type="checkbox" name="checkArchives" value="<?php echo $valueArchives ?>">
-		<label for="checkArchives">
+		<input type="checkbox" name="checkArchives" class="checkArchives" value="<?php echo $valueArchives ?>" checked>
+		<label for="checkArchives" class="checkArchives">
 			<?php 
 			echo $valueArchives . "<br>";
 			} 
@@ -82,6 +80,22 @@ unset
 
 </body>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+
+		// $("input[type=checkbox]").click( function(){
+		// 	$(".checkDo").addClass("checked");
+		// });
+
+		// if($(".checkArchives").prop(":checked")) {
+		// 	$(".checkArchives").addClass("checked");
+		// }
+	})
+
+	// "input[name='<?php $valueArchives ?>']:checked"
+
+	</script>
 
 </html>
 
