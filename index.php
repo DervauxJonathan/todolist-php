@@ -1,7 +1,7 @@
 <?php
 	include ('formulaire.php');
 
-	$decodeTodo['archives'][] = "";
+	$decodeTodo['archives'] = [];
 
 	if (isset($_POST['checkDo'])) {
 		$checkDo = $_POST['checkDo'];
@@ -31,7 +31,20 @@
 
 		$newTodo = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
 		file_put_contents('todo.json', $newTodo); //On envoie l'array dans json
-	} 
+	}
+
+
+	if (isset($_POST['checkArchives'])) { 
+		$todoCheck = file_get_contents('todo.json'); //On récupère le fichier json
+		$decodeTodo = json_decode($todoCheck, true); //On le convertit en array PHP
+
+		unset($decodeTodo['archives']);
+		$decodeTodo['archives'] = [];
+
+		$newTodo = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
+		file_put_contents('todo.json', $newTodo); //On envoie l'array dans json
+
+	}
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +81,7 @@
 			<?php echo $valueArchives . "<br>"; ?>
 		</label>
 			<?php } ?>
+		<input type="submit" name="Effacer" value="Effacer les Archives" class="red">
 	</form>
 
 	<h2>Ajouter une tâche</h2>

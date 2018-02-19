@@ -1,6 +1,6 @@
 <?php
 
- 	$decodeTodo['aFaire'][] = "";
+ 	$decodeTodo['aFaire'] = [];
 
 	if(!EMPTY($_POST['tache']) AND isset($_POST['tache'])){
 
