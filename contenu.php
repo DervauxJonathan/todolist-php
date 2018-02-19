@@ -96,6 +96,15 @@
 		console.log(checkboxDo[2]);
 		var checkLabel = $('.checkDoLabel').text();
 		console.log(checkLabel);
+
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState === 4) {
+				var aFaire = JSON.parse(xhr.responseText);// $('#ajax').html(xhr.responseText);
+			}
+		};
+		xhr.open("POST", "todo.json");
+		xhr.send();
 	
 	});
 
