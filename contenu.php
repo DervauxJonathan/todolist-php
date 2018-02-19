@@ -44,36 +44,34 @@
 </head>
 <body>
 
+	<h1>ToDo List</h1>
+
 	<h2>A Faire</h2>
-	<form action="" method="post">
+	<form action="" method="post" id="aFaire">
 		
 	<?php foreach ($decodeTodo['aFaire'] as $iaFaire => $valueaFaire){ // on itère dans l'array dans la partie 'aFaire'
 	?>
 		<input type="checkbox" name="checkDo[]" class="checkDo" value="<?php echo $valueaFaire ?>">
-		<label for="checkDo" class="checkDo">
-			<?php echo $valueaFaire . "<br>";
-
-			} 
-			?>	
+		<label for="checkDo" class="checkDoLabel">
+			<?php echo $valueaFaire . "<br>"; ?>	
 		</label>
+			<?php } ?>
 	
 		<input type="submit" value="Enregistrer" name="enregistrer">
 	</form>
 
 	<h2>Archives</h2>
-	<form action="" method="post">
+	<form action="" method="post" id="archives">
 	<?php foreach ($decodeTodo['archives'] as $iArchives => $valueArchives) {  ?>
 		<input type="checkbox" name="checkArchives" class="checkArchives" value="<?php echo $valueArchives ?>" checked>
 		<label for="checkArchives" class="checkArchives">
-			<?php 
-			echo $valueArchives . "<br>";
-			} 
-			?>
+			<?php echo $valueArchives . "<br>"; ?>
 		</label>
+			<?php } ?>
 	</form>
 
 	<h2>Ajouter une tâche</h2>
-	<form action="" method="post" >
+	<form action="contenu.php" method="post" >
 		<input type="text" name="tache" placeholder="Écrivez une tâche">
 		<input type="submit" value="ajouter">
 	</form>
@@ -84,14 +82,45 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 
-		// $("input[type=checkbox]").click( function(){
+		$(".checkArchives").addClass("checked");
+
+		$(".checkArchives").click(function (){
+			return false;
+		});
+
+		// if ($("input[type=checkbox]").is(":checked")){
+		// 	$(".checkDo").addClass("checked");
+		// };
+
+		var checkboxDo = $("input[class='checkDo']");
+		console.log(checkboxDo[2]);
+		var checkLabel = $('.checkDoLabel').text();
+		console.log(checkLabel);
+		checkLabel[2].addClass("checked");
+
+		// for(i=0 ; i < checkboxDo.length; i++){
+
+		// 	checkboxDo[i].click(function (){
+		// 		checkLabel[i].addClass("checked");
+
+		// 	})
+		// }
+
+
+		// $("input[class='checkDo']").click(function (){
 		// 	$(".checkDo").addClass("checked");
 		// });
 
-		// if($(".checkArchives").prop(":checked")) {
-		// 	$(".checkArchives").addClass("checked");
+
+
+		// if($("input[name='checkDo[]']:checked") == true){
+		// 	$(".checkDo").addClass("checked");
+		// };
+
+		// if($(".checkArchives").checked) {
+			
 		// }
-	})
+	});
 
 	// "input[name='<?php $valueArchives ?>']:checked"
 
