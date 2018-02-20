@@ -64,14 +64,13 @@
 		
 	<?php foreach ($decodeTodo['aFaire'] as $iaFaire => $valueaFaire){ // on itère dans l'array dans la partie 'aFaire'
 	?>
-		<input type="checkbox" name="checkDo[]" class="checkDo" value="<?php echo $valueaFaire ?>">
+		<input type="checkbox" name="checkDo[]" class="checkDo" id="<?php echo $iaFaire ?>" value="<?php echo $valueaFaire ?>">
 		<label for="checkDo" class="checkDoLabel">
 			<?php echo $valueaFaire ?>	
 		</label>
 		<br>
 			<?php } ?>
 	
-		<input type="submit" value="Enregistrer" name="enregistrer">
 	</form>
 
 	<h2>Archives</h2>
@@ -95,44 +94,7 @@
 </body>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
-	<script type="text/javascript">
-	$(document).ready(function(){
-
-		$(".checkArchives").addClass("checked");
-
-		$(".checkArchives").click(function (){
-			return false;
-		});
-
-		//cacher le bouton "Enregistrer". 
-		//Qd on sélectionne une checkbox, on fait apparaître le bouton.
-		//Qd on appuie sur "Enregistrer", le bouton disparaît.
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function () {
-			if(xhr.readyState === 4){
-				var sauvegarder = xhr.responseText;
-				var checkbox = $(".checkDo");
-				var formFaire = $("#aFaire").children();
-
-				// console.log(formFaire);
-
-
-
-				// checkbox.change(function (){
-				// 		if (checkbox.is(":checked")){
-				// 			checkbox.addClass("selected");
-				// 			$("#aFaire").append(sauvegarder);
-				// 	};
-				// });
-
-			}
-		};
-		xhr.open("POST", "contenu.php", true);
-		xhr.send();
-	
-	});
-
-	</script>
+	<script type="text/javascript" src="script.js"></script>
 
 </html>
 
