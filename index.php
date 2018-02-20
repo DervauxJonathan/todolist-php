@@ -1,6 +1,8 @@
 <?php
 	include ('formulaire.php');
 
+	$decodeTodo['archives'] = [];
+
 	if (isset($_POST['checkDo'])) {
 		$checkDo = $_POST['checkDo'];
 
@@ -37,7 +39,8 @@
 		$decodeTodo = json_decode($todoCheck, true); //On le convertit en array PHP
 
 		unset($decodeTodo['archives']); // on supprime l'array "archives"
-		$decodeTodo['archives'] = []; //on recrée aussitôt l'array "archives" vide, sinon erreur de variable non définie
+		$decodeTodo['archives'] = []; 
+		//on recrée aussitôt l'array "archives" vide, sinon erreur de variable non définie
 
 		$newTodo = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
 		file_put_contents('todo.json', $newTodo); //On envoie l'array dans json
@@ -59,7 +62,7 @@
 
 	<h2>A Faire</h2>
 	<form action="" method="post" id="aFaire">
-		<ul id="ulaFaire">
+		<ul class="ul" id="ulaFaire">
 			<?php foreach ($decodeTodo['aFaire'] as $iaFaire => $valueaFaire){ // on itère dans l'array dans la partie 'aFaire'
 			?>
 				<li>
@@ -74,13 +77,13 @@
 
 	<h2>Archives</h2>
 	<form action="" method="post" id="archives">
-		<ul>
+		<ul class="ul">
 			<?php foreach ($decodeTodo['archives'] as $iArchives => $valueArchives) {  ?>
 				<li>
 					<input type="checkbox" name="checkArchives" class="checkArchives" value="<?php echo $valueArchives ?>" checked>
 					<label for="checkArchives" class="checkArchives">
 						<?php echo $valueArchives ?>
-					</label>			
+					</label>	
 				</li>
 			<?php } ?>
 		</ul>

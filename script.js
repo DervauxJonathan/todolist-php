@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 		//Donner la valeur "checked" aux checkbox archives
 		$(".checkArchives").addClass("checked");
 
@@ -7,7 +8,7 @@ $(document).ready(function(){
 			return false;
 		});
 
-		
+
 
 		//AJAX : Btn Sauvegarder
 		//cacher le bouton "Sauvegarder". 
