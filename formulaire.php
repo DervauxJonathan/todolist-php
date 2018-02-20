@@ -8,7 +8,7 @@
 		$decodeTodo = json_decode($todo, true); //On convertit le json en array PHP
 
 		$decodeTodo['aFaire'][] = htmlspecialchars($_POST['tache']);
-		 //On met la valeur de l'input dans l'array de la clé "aFaire" (si ce dernier n'existe pas, il est créé)
+		 //On met la valeur de l'input dans l'array de la clé "aFaire"
 		
 		$newTodo = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
 

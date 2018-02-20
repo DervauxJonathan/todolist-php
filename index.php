@@ -1,7 +1,7 @@
 <?php
 	include ('formulaire.php');
 
-	$decodeTodo['archives'] = [];
+	$decodeTodo['archives'][] = "";
 
 	if (isset($_POST['checkDo'])) {
 		$checkDo = $_POST['checkDo'];
@@ -66,8 +66,9 @@
 	?>
 		<input type="checkbox" name="checkDo[]" class="checkDo" value="<?php echo $valueaFaire ?>">
 		<label for="checkDo" class="checkDoLabel">
-			<?php echo $valueaFaire . "<br>"; ?>	
+			<?php echo $valueaFaire ?>	
 		</label>
+		<br>
 			<?php } ?>
 	
 		<input type="submit" value="Enregistrer" name="enregistrer">
@@ -78,8 +79,9 @@
 	<?php foreach ($decodeTodo['archives'] as $iArchives => $valueArchives) {  ?>
 		<input type="checkbox" name="checkArchives" class="checkArchives" value="<?php echo $valueArchives ?>" checked>
 		<label for="checkArchives" class="checkArchives">
-			<?php echo $valueArchives . "<br>"; ?>
+			<?php echo $valueArchives ?>
 		</label>
+		<br>
 			<?php } ?>
 		<input type="submit" name="Effacer" value="Effacer les Archives" class="red">
 	</form>
@@ -102,14 +104,31 @@
 			return false;
 		});
 
-		// if ($("input[type=checkbox]").is(":checked")){
-		// 	$(".checkDo").addClass("checked");
-		// };
+		//cacher le bouton "Enregistrer". 
+		//Qd on sélectionne une checkbox, on fait apparaître le bouton.
+		//Qd on appuie sur "Enregistrer", le bouton disparaît.
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState === 4){
+				var sauvegarder = xhr.responseText;
+				var checkbox = $(".checkDo");
+				var formFaire = $("#aFaire").children();
 
-		var checkboxDo = $("input[class='checkDo']");
-		console.log(checkboxDo[2]);
-		var checkLabel = $('.checkDoLabel').text();
-		console.log(checkLabel);
+				// console.log(formFaire);
+
+
+
+				// checkbox.change(function (){
+				// 		if (checkbox.is(":checked")){
+				// 			checkbox.addClass("selected");
+				// 			$("#aFaire").append(sauvegarder);
+				// 	};
+				// });
+
+			}
+		};
+		xhr.open("POST", "contenu.php", true);
+		xhr.send();
 	
 	});
 

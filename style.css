@@ -3,6 +3,10 @@
 	color: #919090;
 }
 
+.d-none{
+	display: none;
+}
+
 h2{
 	text-decoration: none !important;
 	color: #000;
