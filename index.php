@@ -1,8 +1,6 @@
 <?php
 	include ('formulaire.php');
 
-	$decodeTodo['archives'][] = "";
-
 	if (isset($_POST['checkDo'])) {
 		$checkDo = $_POST['checkDo'];
 
@@ -38,8 +36,8 @@
 		$todoCheck = file_get_contents('todo.json'); //On récupère le fichier json
 		$decodeTodo = json_decode($todoCheck, true); //On le convertit en array PHP
 
-		unset($decodeTodo['archives']);
-		$decodeTodo['archives'] = [];
+		unset($decodeTodo['archives']); // on supprime l'array "archives"
+		$decodeTodo['archives'] = []; //on recrée aussitôt l'array "archives" vide, sinon erreur de variable non définie
 
 		$newTodo = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
 		file_put_contents('todo.json', $newTodo); //On envoie l'array dans json
@@ -61,28 +59,32 @@
 
 	<h2>A Faire</h2>
 	<form action="" method="post" id="aFaire">
-		
-	<?php foreach ($decodeTodo['aFaire'] as $iaFaire => $valueaFaire){ // on itère dans l'array dans la partie 'aFaire'
-	?>
-		<input type="checkbox" name="checkDo[]" class="checkDo" id="<?php echo $iaFaire ?>" value="<?php echo $valueaFaire ?>">
-		<label for="checkDo" class="checkDoLabel">
-			<?php echo $valueaFaire ?>	
-		</label>
-		<br>
+		<ul id="ulaFaire">
+			<?php foreach ($decodeTodo['aFaire'] as $iaFaire => $valueaFaire){ // on itère dans l'array dans la partie 'aFaire'
+			?>
+				<li>
+					<input type="checkbox" name="checkDo[]" class="checkDo" value="<?php echo $valueaFaire ?>">
+					<label for="checkDo" class="checkDoLabel">
+						<?php echo $valueaFaire ?>	
+					</label>
+				</li>			
 			<?php } ?>
-	
+		</ul>
 	</form>
 
 	<h2>Archives</h2>
 	<form action="" method="post" id="archives">
-	<?php foreach ($decodeTodo['archives'] as $iArchives => $valueArchives) {  ?>
-		<input type="checkbox" name="checkArchives" class="checkArchives" value="<?php echo $valueArchives ?>" checked>
-		<label for="checkArchives" class="checkArchives">
-			<?php echo $valueArchives ?>
-		</label>
-		<br>
+		<ul>
+			<?php foreach ($decodeTodo['archives'] as $iArchives => $valueArchives) {  ?>
+				<li>
+					<input type="checkbox" name="checkArchives" class="checkArchives" value="<?php echo $valueArchives ?>" checked>
+					<label for="checkArchives" class="checkArchives">
+						<?php echo $valueArchives ?>
+					</label>			
+				</li>
 			<?php } ?>
-		<input type="submit" name="Effacer" value="Effacer les Archives" class="red">
+		</ul>
+		<input type="submit" name="Effacer" value="Effacer les Archives" class="red">		
 	</form>
 
 	<h2>Ajouter une tâche</h2>
@@ -93,8 +95,13 @@
 
 </body>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript" src="script.js">
+		
+
+	</script>
 
 </html>
 
