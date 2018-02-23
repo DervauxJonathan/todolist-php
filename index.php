@@ -3,6 +3,7 @@
 
 	$decodeTodo['archives'] = [];
 
+	//
 	if (isset($_POST['checkDo'])) {
 		$checkDo = $_POST['checkDo'];
 
@@ -33,18 +34,21 @@
 		file_put_contents('todo.json', $newTodo); //On envoie l'array dans json
 	}
 
-
+	//SUPPRESSION DES ARCHIVES UNE PART UNE
 	if (isset($_POST['checkArchives'])) { 
+
+		$arrayChArchives = $_POST['checkArchives']; //Ne sélectionne que les checkbox cochées
+
 		$todoCheck = file_get_contents('todo.json'); //On récupère le fichier json
 		$decodeTodo = json_decode($todoCheck, true); //On le convertit en array PHP
 
-		unset($decodeTodo['archives']); // on supprime l'array "archives"
-		$decodeTodo['archives'] = []; 
-		//on recrée aussitôt l'array "archives" vide, sinon erreur de variable non définie
+		// On compare l'array archives (dans JSON) avec checkbox cochées, il reste ce qui n'a pas été coché via les checkbox
+		$newArchive = array_diff($decodeTodo['archives'], $arrayChArchives);
+		//On écrase l'array archives de JSON avec la différence
+		$decodeTodo['archives'] = $newArchive;
 
 		$newTodo = json_encode($decodeTodo, JSON_PRETTY_PRINT); //On encode l'array json
 		file_put_contents('todo.json', $newTodo); //On envoie l'array dans json
-
 	}
 ?>
 
@@ -80,7 +84,7 @@
 		<ul class="ul">
 			<?php foreach ($decodeTodo['archives'] as $iArchives => $valueArchives) {  ?>
 				<li>
-					<input type="checkbox" name="checkArchives" class="checkArchives" value="<?php echo $valueArchives ?>" checked>
+					<input type="checkbox" name="checkArchives[]" class="checkArchives" value="<?php echo $valueArchives ?>">
 					<label for="checkArchives" class="checkArchives">
 						<?php echo $valueArchives ?>
 					</label>	
